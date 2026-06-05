@@ -72,23 +72,7 @@ public class AttendanceService {
             );
         }
 
-        Optional<AttendanceLog> existingOpt =
-                attendanceLogRepository.findOpenAttendanceByWorkerId(workerId);
 
-        if (existingOpt.isPresent()) {
-
-            AttendanceLog existing = existingOpt.get();
-
-            String siteName = (existing.getSite() != null)
-                    ? existing.getSite().getSiteName()
-                    : "Unknown Site";
-
-            throw new ApiException(
-                    "DUPLICATE_CLOCK_IN",
-                    HttpStatus.CONFLICT,
-                    "Worker is already clocked in at Site: " + siteName
-            );
-        }
 
         OffsetDateTime now = OffsetDateTime.now();
 
